@@ -21,7 +21,7 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "budget" && value && !/^\d+$/.test(value)) return;
+    if (name === "budget" && value && !/^\d*\.?\d*$/.test(value)) return;
     setFormData((p) => ({ ...p, [name]: value }));
     if (errors[name]) setErrors((p) => ({ ...p, [name]: "" }));
   };
@@ -33,7 +33,10 @@ export default function Contact() {
         !formData[f].trim() &&
         (newErrors[f] = "Can't leave this empty, Dude!!"),
     );
-    if (formData.service !== "other" && !formData.budget.trim()) {
+    if (formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Invalid email address!";
+    }
+    if (formData.service !== "Others" && !formData.budget.trim()) {
       newErrors.budget = "Can't leave this empty, Dude!!";
     }
     setErrors(newErrors);
@@ -98,7 +101,7 @@ export default function Contact() {
           className="w-full md:w-1/2 bg-white/5 p-8 rounded-2xl shadow-lg border border-white/10"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transitioin={{ duration: 0.6 }}
+          transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl font-bold mb-6">Let's Work Together</h2>
 
@@ -124,14 +127,14 @@ export default function Contact() {
                 Your Email <span className="text-red-500">*</span>
               </label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Your Email"
                 value={formData.email}
                 onChange={handleChange}
                 className={`p-3 rounded-md bg-white/10 border ${errors.email ? "border-red-500" : "border-gray-500"} text-white focus:outline-none focus:border-blue-500 `}
               />
-              {errors.email && <p className="text-red-500">{errors.name}</p>}
+              {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
 
             <div className="flex flex-col">
@@ -142,13 +145,13 @@ export default function Contact() {
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
-                className={`p-3 rounded-md bg-white/10 border ${errors.servicce ? "border-red-500" : "border-gray-500"} text-white focus:outline-none focus:border-blue-500 `}
+                className={`p-3 rounded-md bg-white/10 border ${errors.service ? "border-red-500" : "border-gray-500"} text-white focus:outline-none focus:border-blue-500 `}
               >
                 <option value="" disabled className="text-black">
                   Something in Mind?
                 </option>
                 <option value="Web Development" className="text-black">
-                  Web Deveopment
+                  Web Development
                 </option>
                 <option value="Mobile Application" className="text-black">
                   Mobile Application
@@ -157,7 +160,7 @@ export default function Contact() {
                   Others
                 </option>
               </select>
-              {errors.service && <p className="text-red-500">{errors.name}</p>}
+              {errors.service && <p className="text-red-500">{errors.service}</p>}
             </div>
 
             {formData.service && formData.service !== "Others" && (
@@ -190,9 +193,7 @@ export default function Contact() {
                 value={formData.idea}
                 onChange={handleChange}
                 className={`p-3 rounded-md bg-white/10 border ${errors.idea ? "border-red-500" : "border-gray-500"} text-white focus:outline-none focus:border-blue-500 `}
-              >
-
-              </textarea>
+              />
               {errors.idea && <p className="text-red-500">{errors.idea}</p>}
             </div>
 
