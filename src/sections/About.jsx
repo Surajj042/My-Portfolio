@@ -17,7 +17,7 @@ export default function About(){
 
   return(
     <section id="about"
-    className="min-h-screen w-full flex items-center justify-center relative bg-black overflow-hidden"
+    className="min-h-screen w-full flex items-center justify-center relative bg-black text-white overflow-hidden"
     >
     <div className="absolute inset-0 pointer-events-none">
       {glows.map((c,i) => (
@@ -32,7 +32,7 @@ export default function About(){
     <motion.div className="flex flex-col md:flex-row items-center md:items-stretch gap-8"
     initial={{opacity:0, y:24}}
     whileInView={{opacity:1, y:0}}
-    transition={{duratiion:0.6}}
+    transition={{duration:0.6}}
     viewport={{once:true, amount:0.4}}
      >
 
@@ -40,7 +40,7 @@ export default function About(){
      whileHover={{scale:1.02}}
      transition={{type:"spring", stiffness:200, damping:18}}
       >
-     <img src={p} alt="Surajj" className="absolute inset-0" />
+     <img src={p} alt="Surajj" className="absolute inset-0 w-full h-full object-cover" />
 
      </motion.div>
 
@@ -54,7 +54,7 @@ export default function About(){
       </p>
 
       <p className="mt-4 text-gray-300 leading-relaxed sm:text-lg max-w-2xl md:max-w-3xl ">
-        I build scalable, modern applications with a strong focus on clean architecture, delightful UX, and performance. My toolkit spans Java, React, Next.js, TypesScript, robust APIs and smooth interfaces.
+        I build scalable, modern applications with a strong focus on clean architecture, delightful UX, and performance. My toolkit spans Java, React, Next.js, TypeScript, robust APIs and smooth interfaces.
       </p>
 
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl"> 
@@ -76,7 +76,7 @@ export default function About(){
       </div>
 
       <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-        <a href="#projects" className="inline-flex items-center justfiy-center rounded-lg bg-white text-black font-semibold px-5 py-3 hover:bg-gray-200 transition" >View Projects</a>
+        <a href="#projects" className="inline-flex items-center justify-center rounded-lg bg-white text-black font-semibold px-5 py-3 hover:bg-gray-200 transition" >View Projects</a>
         <a href="#contact" className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white px-5 py-3 hover:bg-white/20 transition">Get in Touch</a>
       </div>
 
@@ -91,7 +91,7 @@ export default function About(){
     transition={{duration:0.6}}
     viewport={{once:true,amount:0.4}}
     >
-      <h3 className="text-2xl sm:text-3xl font:bold text-white mb-3">
+      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
         About Me
       </h3>
       <p className="text-gray-300 leading-relaxed text-base sm:text-lg">

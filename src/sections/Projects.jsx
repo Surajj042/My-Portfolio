@@ -84,7 +84,7 @@ export default function Projects() {
         },
       ];
     },
-    [isMobile], //re-run only when `isMobile` hanges
+    [isMobile], //re-run only when `isMobile` changes
   );
 
   const { scrollYProgress } = useScroll({
@@ -110,7 +110,7 @@ export default function Projects() {
       style={{
         height: `${100 * projects.length}vh`,
         background: activeProject.bgColor,
-        transition: "background-color 400ms ease",
+        transition: "background 400ms ease",
       }}
     >
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center ">
@@ -154,7 +154,7 @@ export default function Projects() {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Open ${project.title} GitHub repository`}
+                aria-label={`Open ${project.title} Live Project`}
                 className="relative w-full block cursor-pointer group"
               >
                 <div
@@ -174,7 +174,7 @@ export default function Projects() {
                     }}
                     loading="lazy"
                   />
-                  
+
                   <div
                     className="pointer-events-none absolute inset-0"
                     style={{
@@ -190,7 +190,7 @@ export default function Projects() {
         </div>
 
         <div
-          className={`absolute z-90 ${isMobile ? "bottom-20" : "bottom-10 "}`}
+          className={`absolute z-50 ${isMobile ? "bottom-20" : "bottom-10 "}`}
         >
           <a
             href={activeProject?.github}

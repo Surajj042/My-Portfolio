@@ -85,7 +85,7 @@ export default function Home() {
             <motion.h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[rgb(41,198,255)] via-[#0d46a9] to-[#40396c] drop-shadow-2xl"
             initial={{opacity:0, y:40}}
             animate={{opacity:1, y:0}}
-            transition={{duratioin:1}}
+            transition={{duration:1}}
             >
               Hello, I'm
               <br />
@@ -94,7 +94,7 @@ export default function Home() {
               </span>
             </motion.h1>
 
-            <motion.p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-2-2xl mx-auto lg:mx-0"
+            <motion.p className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0"
             initial={{opacity:0,y:20}}
             animate={{opacity:1,y:0}}
             transition={{delay:0.4,duration:0.8}}

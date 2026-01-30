@@ -57,13 +57,8 @@ export default function ParticlesBackground() {
     function handleResize() {
       const scale = window.devicePixelRatio || 1;
 
-      canvas.width = window.innerWidth * scale;
-      canvas.height = window.innerHeight * scale;
-
-      // 🔑 reset transform FIRST
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(scale, scale);
-
+      canvas.width = window.innerWidth ;
+      canvas.height = window.innerHeight; 
       createParticles();
     }
 

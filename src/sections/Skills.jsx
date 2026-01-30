@@ -46,23 +46,29 @@ export default function Skills() {
 
 },[])
 
-useEffect(()=> {
-  if(!active) return;
+useEffect(() => {
+  if (!active) return;
 
   const onWheel = (e) => setDir(e.deltaY > 0 ? -1 : 1);
-  const onTouchStart = (e) => (touchY.ccurrent = e.touches[0].clientY);
+  const onTouchStart = (e) => (touchY.current = e.touches[0].clientY);
   const onTouchMove = (e) => {
-    if(touchY.current == null) return;
+    if (touchY.current == null) return;
     const delta = e.touches[0].clientY - touchY.current;
-    setDir( delta > 0 ? 1 : -1);
+    setDir(delta > 0 ? 1 : -1);
     touchY.current = e.touches[0].clientY;
   };
-  window.addEventListener('wheel', onWheel, {passive:true});
-  window.addEventListener('touchstart', onTouchStart, {passive:true});
-  window.addEventListener('touchmove', onTouchMove, {passive:true});
 
+  window.addEventListener("wheel", onWheel, { passive: true });
+  window.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchmove", onTouchMove, { passive: true });
 
-},[active])
+  return () => {
+    window.removeEventListener("wheel", onWheel);
+    window.removeEventListener("touchstart", onTouchStart);
+    window.removeEventListener("touchmove", onTouchMove);
+  };
+}, [active]);
+
 
 useEffect(()=> {
   let id;
@@ -110,7 +116,7 @@ useEffect(()=> {
     whileInView={{opacity:1,y:0}}
     transition={{duration:0.5, delay:0.1}}
     >
-      Modern Applications | Modern Tecchnologies
+      Modern Applications | Modern Technologies
     </motion.p>
 
     <div className="relative w-full overflow-hidden">
