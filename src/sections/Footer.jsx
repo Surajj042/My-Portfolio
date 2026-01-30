@@ -39,7 +39,7 @@ export default function Footer(){
       whiteSpace:"nowrap",
       textShadow: "0 2px 18px rgba(0,0,0,0.45)"
     }}>
-    Suraj Gurung
+    Surajj Gurung
     </h1>
 
     <div

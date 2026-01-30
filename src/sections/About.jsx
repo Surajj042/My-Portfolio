@@ -45,9 +45,9 @@ export default function About(){
      </motion.div>
 
      <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-      <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]  ">
+      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]  ">
         Suraj Gurung
-      </h2>
+      </h1>
 
       <p className="mt-2 text-lg sm:text-xl text-white/90 font-semibold">
         Full Stack Developer
