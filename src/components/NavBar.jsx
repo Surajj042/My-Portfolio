@@ -27,6 +27,7 @@ export default function NavBar() {
     if (homeSection) observer.observe(homeSection);
     return () => {
       if (homeSection) observer.unobserve(homeSection);
+      observer.disconnect();
     };
   }, []);
 
@@ -42,7 +43,10 @@ export default function NavBar() {
       } else {
         setVisible(true);
 
-        if (timerId.current) clearTimeout(timerId.current);
+        if (timerId.current) {
+          clearTimeout(timerId.current);
+          timerId.current = null;
+        }
         timerId.current = setTimeout(() => {
           setVisible(false);
         }, 3000);
@@ -75,7 +79,7 @@ export default function NavBar() {
           <button
             onClick={() => setMenuOpen(true)}
             className="text-white text-3xl focus:outline-none cursor-pointer"
-            aria-label="open Menu"
+            aria-label={menuOpen ? "Close Menu" : "Open Menu"}
           >
             <FiMenu />
           </button>

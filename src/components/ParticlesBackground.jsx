@@ -10,16 +10,20 @@ export default function ParticlesBackground() {
 
     let particles = [];
     const particleCount = 50;
-    const colors = ["rgba(255,255,255,0.7)"];
+    const colors = [
+      "rgba(255,255,255,0.5)",
+      "rgba(255,255,255,0.7)",
+      "rgba(255,255,255,0.9)",
+    ];
 
-    class Particles {
+    class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.radius = Math.random() * 2 + 1;
         this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.speedY = (Math.random() - 0.5) * 1;
       }
 
       draw() {
@@ -46,13 +50,16 @@ export default function ParticlesBackground() {
     function createParticles() {
       particles = [];
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particles());
+        particles.push(new Particle());
       }
     }
 
     function handleResize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * scale;
+      canvas.height = window.innerHeight * scale;
+      ctx.scale(scale, scale);
+
       createParticles();
     }
     handleResize();
@@ -61,16 +68,16 @@ export default function ParticlesBackground() {
     let animationId;
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p)=>p.update());
+      particles.forEach((p) => p.update());
       animationId = requestAnimationFrame(animate);
     }
     animate();
 
-    return() => {
-        cancelAnimationFrame(animationId);
-        window.removeEventListener("resize", handleResize);
-    }
-  },[]);
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <canvas

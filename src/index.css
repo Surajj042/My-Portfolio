@@ -12,9 +12,9 @@ h2 {
 @layer utilities {
   .gradient {
     background: linear-gradient(-45deg, #1e3c72, #2a5298)
-
-
-
-
   }
+}
+
+html{
+  scroll-behavior: smooth;
 }

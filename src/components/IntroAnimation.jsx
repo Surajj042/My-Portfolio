@@ -25,8 +25,8 @@ export default function IntroAnimation({ onFinish }) {
 
   useEffect(() => {
     if (index < greetings.length - 1) {
-      const id = setInterval(() => setIndex((i) => i + 1), 180);
-      return () => clearInterval(id);
+      const timer = setTimeout(() => setIndex((i) => i + 1), 180);
+      return () => clearTimeout(timer);
     } else {
       const t = setTimeout(() => setVisible(false), 300);
       return () => clearTimeout(t);
@@ -38,7 +38,6 @@ export default function IntroAnimation({ onFinish }) {
       {visible && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black text-white overflow-hidden "
-          initial={{ y: 0 }}
           exit={{
             y: "-100%",
             transition: { duration: 1.05, ease: [0.22, 1, 0.36, 1] },
