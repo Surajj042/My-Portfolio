@@ -22,8 +22,8 @@ export default function ParticlesBackground() {
         this.y = Math.random() * canvas.height;
         this.radius = Math.random() * 2 + 1;
         this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.speedX = (Math.random() - 0.5) * 1;
-        this.speedY = (Math.random() - 0.5) * 1;
+        this.speedX = (Math.random() - 0.5) * 0.7;
+        this.speedY = (Math.random() - 0.5) * 0.7;
       }
 
       draw() {
@@ -56,12 +56,17 @@ export default function ParticlesBackground() {
 
     function handleResize() {
       const scale = window.devicePixelRatio || 1;
+
       canvas.width = window.innerWidth * scale;
       canvas.height = window.innerHeight * scale;
+
+      // 🔑 reset transform FIRST
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(scale, scale);
 
       createParticles();
     }
+
     handleResize();
     window.addEventListener("resize", handleResize);
 
