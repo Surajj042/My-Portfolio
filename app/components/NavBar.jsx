@@ -1,6 +1,7 @@
+"use client";
+
 import { useEffect, useState, useRef } from "react";
 import OverlayMenu from "./OverlayMenu";
-import Logo from "../assets/Logo.png";
 import { FiMenu } from "react-icons/fi";
 
 export default function NavBar() {
@@ -68,7 +69,11 @@ export default function NavBar() {
       >
         <div className="flex items-center space-x-2">
           <a href="#home" className="flex items-center space-x-2">
-            <img src={Logo} alt="logo" className="w-20 h-20 cursor-pointer" />
+            <img
+              src="/assets/Logo.png"
+              alt="logo"
+              className="w-20 h-20 cursor-pointer"
+            />
             <div className="text-2xl font-bold text-white hidden sm:block cursor-pointer">
               SURAJJ
             </div>

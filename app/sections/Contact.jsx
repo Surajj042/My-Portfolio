@@ -1,12 +1,13 @@
+"use client";
+
 import { useState } from "react";
 import ParticlesBackground from "../components/ParticlesBackground";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import Astra from "../assets/Astra.png";
 
-const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
-const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_PUBLIC_KEY;
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -88,7 +89,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
         >
           <motion.img
-            src={Astra}
+            src="/assets/Astra.png"
             alt="Contact"
             className="w-72 md:w-140 rounded-2xl shadow-lg object-cover"
             animate={{ y: [0, -10, 0] }}
@@ -96,14 +97,13 @@ export default function Contact() {
           />
         </motion.div>
 
-        {/* Right side */}
         <motion.div
           className="w-full md:w-1/2 bg-white/5 p-8 rounded-2xl shadow-lg border border-white/10"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold mb-6">Let's Work Together</h2>
+          <h2 className="text-3xl font-bold mb-6">Let&apos;s Work Together</h2>
 
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col">
@@ -134,7 +134,9 @@ export default function Contact() {
                 onChange={handleChange}
                 className={`p-3 rounded-md bg-white/10 border ${errors.email ? "border-red-500" : "border-gray-500"} text-white focus:outline-none focus:border-blue-500 `}
               />
-              {errors.email && <p className="text-red-500">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500">{errors.email}</p>
+              )}
             </div>
 
             <div className="flex flex-col">
@@ -160,7 +162,9 @@ export default function Contact() {
                   Others
                 </option>
               </select>
-              {errors.service && <p className="text-red-500">{errors.service}</p>}
+              {errors.service && (
+                <p className="text-red-500">{errors.service}</p>
+              )}
             </div>
 
             {formData.service && formData.service !== "Others" && (
@@ -198,18 +202,25 @@ export default function Contact() {
             </div>
 
             {status && (
-              <p className={`text-sm ${status === "success" ? "text-green-400" : status === "error" ? "text-red-400" : "text-yellow-400" }`}>
-                {status === "sending" ? "Sending..." : status === "success"? "Message sent successfully ✅" : "Something went wrong ❌"}
+              <p
+                className={`text-sm ${status === "success" ? "text-green-400" : status === "error" ? "text-red-400" : "text-yellow-400"}`}
+              >
+                {status === "sending"
+                  ? "Sending..."
+                  : status === "success"
+                    ? "Message sent successfully ✅"
+                    : "Something went wrong ❌"}
               </p>
             )}
 
-            <motion.button className="bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white py-3 rounded-md font-semibold transition"
-            whileHover={{scale:1.05}}
-            whileTap={{scale:0.95}}
-            disabled={status==="sending"}
-            type="submit"
+            <motion.button
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white py-3 rounded-md font-semibold transition"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled={status === "sending"}
+              type="submit"
             >
-            {status === "sending"? "Sending...": "Send Message" }
+              {status === "sending" ? "Sending..." : "Send Message"}
             </motion.button>
           </form>
         </motion.div>

@@ -1,10 +1,6 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
-import img1 from "../assets/img1.png";
-import img2 from "../assets/img2.png";
-import img3 from "../assets/img3.png";
-import photo1 from "../assets/photo1.png";
-import photo2 from "../assets/photo2.png";
-import photo3 from "../assets/photo3.png";
 import {
   motion,
   AnimatePresence,
@@ -12,7 +8,6 @@ import {
   useScroll,
 } from "framer-motion";
 
-// color variations (solid + gradient)
 const COLOR_VARIATIONS = [
   "#020617",
   "#0f172a",
@@ -57,35 +52,32 @@ export default function Projects() {
   const isMobile = useIsMobile();
   const sceneRef = useRef(null);
 
-  const projects = useMemo(
-    () => {
-      const shuffledColors = shuffleArray(COLOR_VARIATIONS);
-      return [
-        {
-          title: "N-GVLH",
-          link: "https://n-gvlh.vercel.app/",
-          github: "https://github.com/Surajj042/n-gvlh_project-ii",
-          bgColor: shuffledColors[0],
-          image: isMobile ? photo1 : img1,
-        },
-        {
-          title: "Game-Hub",
-          link: "https://game-hub-woad-theta-42.vercel.app",
-          github: "https://github.com/Surajj042/Game-Hub",
-          bgColor: shuffledColors[1],
-          image: isMobile ? photo2 : img2,
-        },
-        {
-          title: "Realtime Collab",
-          link: "https://realtime-collab-puce.vercel.app",
-          github: "https://github.com/Surajj042/realtime-collab",
-          bgColor: shuffledColors[2],
-          image: isMobile ? photo3 : img3,
-        },
-      ];
-    },
-    [isMobile], //re-run only when `isMobile` changes
-  );
+  const projects = useMemo(() => {
+    const shuffledColors = shuffleArray(COLOR_VARIATIONS);
+    return [
+      {
+        title: "N-GVLH",
+        link: "https://n-gvlh.vercel.app/",
+        github: "https://github.com/Surajj042/n-gvlh_project-ii",
+        bgColor: shuffledColors[0],
+        image: isMobile ? "/assets/photo1.png" : "/assets/img1.png",
+      },
+      {
+        title: "Game-Hub",
+        link: "https://game-hub-woad-theta-42.vercel.app",
+        github: "https://github.com/Surajj042/Game-Hub",
+        bgColor: shuffledColors[1],
+        image: isMobile ? "/assets/photo2.png" : "/assets/img2.png",
+      },
+      {
+        title: "Realtime Collab",
+        link: "https://realtime-collab-puce.vercel.app",
+        github: "https://github.com/Surajj042/realtime-collab",
+        bgColor: shuffledColors[2],
+        image: isMobile ? "/assets/photo3.png" : "/assets/img3.png",
+      },
+    ];
+  }, [isMobile]);
 
   const { scrollYProgress } = useScroll({
     target: sceneRef,
@@ -137,9 +129,7 @@ export default function Projects() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 30 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-20 sm:left-[35%] lg:left-[-5%] sm:mb-0 italic font-semibold ${
-                      isMobile ? "-mt-24" : ""
-                    } `}
+                    className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-20 sm:left-[35%] lg:left-[-5%] sm:mb-0 italic font-semibold ${isMobile ? "-mt-24" : ""} `}
                     style={{
                       zIndex: 5,
                       textAlign: isMobile ? "center" : "left",

@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable react-hooks/unsupported-syntax */
 import { useEffect, useRef } from "react";
 
@@ -57,8 +59,8 @@ export default function ParticlesBackground() {
     function handleResize() {
       const scale = window.devicePixelRatio || 1;
 
-      canvas.width = window.innerWidth ;
-      canvas.height = window.innerHeight; 
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
       createParticles();
     }
 

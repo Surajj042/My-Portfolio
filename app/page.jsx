@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import CustomCursor from "./components/CustomCursor";
 import NavBar from "./components/NavBar";
