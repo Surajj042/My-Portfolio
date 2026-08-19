@@ -4,6 +4,7 @@ import { useState } from "react";
 import ParticlesBackground from "../components/ParticlesBackground";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
@@ -80,7 +81,6 @@ export default function Contact() {
       className="w-full min-h-screen relative bg-black overflow-hidden text-white py-20 md:px-20 flex flex-col md:flex-row items-center gap-10"
     >
       <ParticlesBackground />
-
       <div className="relative z-10 w-full flex flex-col md:flex-row items-center gap-10">
         <motion.div
           className="w-full md:w-1/2 flex justify-center"
@@ -88,13 +88,19 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <motion.img
-            src="/assets/Astra.png"
-            alt="Contact"
-            className="w-72 md:w-140 rounded-2xl shadow-lg object-cover"
+          <motion.div
+            className="relative w-72 md:w-140 h-72 md:h-140 rounded-2xl shadow-lg overflow-hidden"
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
+          >
+            <Image
+              src="/assets/Astra.png"
+              alt="Contact"
+              width={560}
+              height={560}
+              className="object-cover w-full h-full"
+            />
+          </motion.div>
         </motion.div>
 
         <motion.div

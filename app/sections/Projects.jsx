@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
+import Image from "next/image";
 
 const COLOR_VARIATIONS = [
   "#020617",
@@ -61,6 +62,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/n-gvlh_project-ii",
         bgColor: shuffledColors[0],
         image: isMobile ? "/assets/photo1.png" : "/assets/img1.png",
+        width: 1200,
+        height: 750,
       },
       {
         title: "Game-Hub",
@@ -68,6 +71,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/Game-Hub",
         bgColor: shuffledColors[1],
         image: isMobile ? "/assets/photo2.png" : "/assets/img2.png",
+        width: 1200,
+        height: 750,
       },
       {
         title: "Realtime Collab",
@@ -75,6 +80,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/realtime-collab",
         bgColor: shuffledColors[2],
         image: isMobile ? "/assets/photo3.png" : "/assets/img3.png",
+        width: 1200,
+        height: 750,
       },
     ];
   }, [isMobile]);
@@ -152,9 +159,11 @@ export default function Projects() {
         h-[62vh] sm:h-[66vh]`}
                   style={{ zIndex: 10, transition: "box-shadow 250ms ease" }}
                 >
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    width={project.width}
+                    height={project.height}
                     className="w-full h-full object-cover drop-shadow-xl md:drop-shadow-2xl"
                     style={{
                       position: "relative",

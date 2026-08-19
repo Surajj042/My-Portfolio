@@ -18,7 +18,11 @@ export const metadata = {
   description:
     "Suraj Gurung – Full Stack Developer portfolio showcasing modern web projects, skills, and experience.",
   icons: {
-    icon: "/assets/Me.png",
+    icon: [
+      { url: "/assets/Logo.png", sizes: "any" },
+      { url: "/assets/Logo.png", sizes: "192x192", type: "image/png" },
+      { url: "/assets/Logo.png", sizes: "512x512", type: "image/png" },
+    ],
   },
 };
 

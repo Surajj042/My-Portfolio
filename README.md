@@ -1,16 +1,41 @@
-# React + Vite
+# Suraj Gurung | Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, single-page portfolio built with Next.js, React, Tailwind CSS v4, and Framer Motion.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion, Canvas 2D particles, WebGL (OGL)
+- **Email:** EmailJS (client-side)
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open [http://localhost:3000](http://localhost:3000).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Build
+
+```bash
+npm run build
+npm start
+```
+
+## Environment Variables
+
+Create a `.env` file with your EmailJS credentials:
+
+```
+NEXT_PUBLIC_SERVICE_ID=your_service_id
+NEXT_PUBLIC_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_PUBLIC_KEY=your_public_key
+```
+
+## License
+
+Copyright &copy; Suraj Gurung. All rights reserved.

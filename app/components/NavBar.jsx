@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import OverlayMenu from "./OverlayMenu";
 import { FiMenu } from "react-icons/fi";
+import Image from "next/image";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,10 +70,12 @@ export default function NavBar() {
       >
         <div className="flex items-center space-x-2">
           <a href="#home" className="flex items-center space-x-2">
-            <img
+            <Image
               src="/assets/Logo.png"
               alt="logo"
-              className="w-20 h-20 cursor-pointer"
+              width={80}
+              height={80}
+              className="cursor-pointer"
             />
             <div className="text-2xl font-bold text-white hidden sm:block cursor-pointer">
               SURAJJ
