@@ -72,9 +72,10 @@ export default function NavBar() {
           <a href="#home" className="flex items-center space-x-2">
             <Image
               src="/assets/Logo.png"
-              alt="logo"
+              alt="Suraj Gurung – portfolio logo"
               width={80}
               height={80}
+              priority
               className="cursor-pointer"
             />
             <div className="text-2xl font-bold text-white hidden sm:block cursor-pointer">

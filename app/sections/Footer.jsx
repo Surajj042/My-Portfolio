@@ -56,7 +56,9 @@ export default function Footer() {
         </p>
 
         <p className="text-xs text-gray-400 ">
-          &copy; {new Date().getFullYear()} Suraj Gurung. All rights reserved.
+          <span suppressHydrationWarning>
+            &copy; {new Date().getFullYear()} Suraj Gurung. All rights reserved.
+          </span>
         </p>
       </motion.div>
       <ParticlesBackground />

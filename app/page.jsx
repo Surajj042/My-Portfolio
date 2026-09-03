@@ -15,20 +15,21 @@ export default function App() {
   const [introDone, setIntroDone] = useState(false);
   return (
     <>
+      {/* Intro is a fixed overlay (z-[9999]) rendered ON TOP of the page.
+          The full page content is always rendered in the DOM so that
+          search engines can index it from the initial server HTML. */}
       {!introDone && <IntroAnimation onFinish={() => setIntroDone(true)} />}
 
-      {introDone && (
-        <div className="relative gradient text-white">
-          <CustomCursor />
-          <NavBar />
-          <Home />
-          <About />
-          <Skills />
-          <Projects />
-          <Contact />
-          <Footer />
-        </div>
-      )}
+      <div className="relative gradient text-white">
+        <CustomCursor />
+        <NavBar />
+        <Home />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
     </>
   );
 }

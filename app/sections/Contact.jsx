@@ -95,7 +95,7 @@ export default function Contact() {
           >
             <Image
               src="/assets/Astra.png"
-              alt="Contact"
+              alt="Suraj Gurung – contact and collaboration"
               width={560}
               height={560}
               className="object-cover w-full h-full"

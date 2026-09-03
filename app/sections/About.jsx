@@ -45,7 +45,7 @@ export default function About() {
           >
             <Image
               src="/assets/p.jpg"
-              alt="Surajj"
+              alt="Suraj Gurung – Full Stack Developer portrait"
               width={200}
               height={200}
               className="absolute inset-0 w-full h-full object-cover"
@@ -53,9 +53,9 @@ export default function About() {
           </motion.div>
 
           <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]  ">
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]  ">
               Suraj Gurung
-            </h1>
+            </h2>
 
             <p className="mt-2 text-lg sm:text-xl text-white/90 font-semibold">
               Full Stack Developer

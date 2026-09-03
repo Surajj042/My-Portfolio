@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
 
 export default function OverlayMenu({ isOpen, onClose }) {
-  const [origin, setOrigin] = useState(
-    typeof window !== "undefined" && window.innerWidth < 1024
-      ? "95% 8%"
-      : "50% 8%",
-  );
+  // Deterministic initial value (matches SSR); real value set after hydration.
+  const [origin, setOrigin] = useState("50% 8%");
 
   useEffect(() => {
+    setOrigin(window.innerWidth < 1024 ? "95% 8%" : "50% 8%");
     const handleResize = () => {
       setOrigin(window.innerWidth < 1024 ? "95% 8%" : "50% 8%");
     };

@@ -24,23 +24,33 @@ const COLOR_VARIATIONS = [
   "linear-gradient(135deg, #312e81, #020617)",
 ];
 
-const shuffleArray = (arr) => {
+// Deterministic shuffle (seeded LCG PRNG) so the server-rendered colors always
+// match the first client render — avoids hydration mismatches from Math.random().
+const seededShuffle = (arr, seed) => {
   const copy = [...arr];
+  let s = seed;
+  const rand = () => {
+    s = (s * 1664525 + 1013904223) % 4294967296;
+    return s / 4294967296;
+  };
   for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rand() * (i + 1));
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
 };
 
+const INITIAL_COLOR_SEED = 1337;
+
 const useIsMobile = (query = "(max-width : 639px)") => {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.matchMedia(query).matches,
-  );
+  // Initialize to the server value (false); the real value is set in the
+  // effect below after hydration to avoid a server/client mismatch.
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mql = window.matchMedia(query);
+    setIsMobile(mql.matches);
     const handler = (e) => setIsMobile(e.matches);
 
     mql.addEventListener("change", handler);
@@ -53,8 +63,19 @@ export default function Projects() {
   const isMobile = useIsMobile();
   const sceneRef = useRef(null);
 
+  // Start with a fixed seed so SSR and the first client render match, then
+  // reshuffle randomly after hydration (the CSS transition makes it smooth).
+  const [colorSeed, setColorSeed] = useState(INITIAL_COLOR_SEED);
+  useEffect(() => {
+    setColorSeed(Math.floor(Math.random() * 4294967296));
+  }, []);
+
+  const shuffledColors = useMemo(
+    () => seededShuffle(COLOR_VARIATIONS, colorSeed),
+    [colorSeed],
+  );
+
   const projects = useMemo(() => {
-    const shuffledColors = shuffleArray(COLOR_VARIATIONS);
     return [
       {
         title: "N-GVLH",
@@ -62,8 +83,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/n-gvlh_project-ii",
         bgColor: shuffledColors[0],
         image: isMobile ? "/assets/photo1.png" : "/assets/img1.png",
-        width: 1200,
-        height: 750,
+        width: isMobile ? 346 : 1902,
+        height: isMobile ? 626 : 866,
       },
       {
         title: "Game-Hub",
@@ -71,8 +92,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/Game-Hub",
         bgColor: shuffledColors[1],
         image: isMobile ? "/assets/photo2.png" : "/assets/img2.png",
-        width: 1200,
-        height: 750,
+        width: isMobile ? 566 : 1895,
+        height: isMobile ? 764 : 852,
       },
       {
         title: "Realtime Collab",
@@ -80,8 +101,8 @@ export default function Projects() {
         github: "https://github.com/Surajj042/realtime-collab",
         bgColor: shuffledColors[2],
         image: isMobile ? "/assets/photo3.png" : "/assets/img3.png",
-        width: 1200,
-        height: 750,
+        width: isMobile ? 339 : 1919,
+        height: isMobile ? 540 : 833,
       },
     ];
   }, [isMobile]);
