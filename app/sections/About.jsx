@@ -45,7 +45,7 @@ export default function About() {
           >
             <Image
               src="/assets/p.jpg"
-              alt="Suraj Gurung – Full Stack Developer portrait"
+              alt="Portrait photograph of Suraj Gurung, Full Stack Developer"
               width={200}
               height={200}
               className="absolute inset-0 w-full h-full object-cover"

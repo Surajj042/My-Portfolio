@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ParticlesBackground from "../components/ParticlesBackground";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { socials, glowVariants } from "../data/site";
 
 export default function Home() {
@@ -40,12 +41,12 @@ export default function Home() {
       <ParticlesBackground />
       <div className="absolute inset-0">
         <div
-          className="absolute -top-32 -left-32 w-[70vw] sm:w-[z-500vw] md:w-[40vw] h-[70vw] sm:h-[50vw] md:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-linear-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] opacity-30 sm:opacity-20 md:opacity-10
+          className="absolute -top-32 -left-32 w-[70vw] sm:w-[50vw] md:w-[40vw] h-[70vw] sm:h-[50vw] md:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-linear-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] opacity-30 sm:opacity-20 md:opacity-10
     blur-[100px] sm:blur-[130px] md:blur-[150px]
     animate-pulse"
         />
         <div
-          className="absolute bottom-0 right-0 w-[70vw] sm:w-[z-500vw] md:w-[40vw] h-[70vw] sm:h-[50vw] md:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-linear-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] opacity-30 sm:opacity-20 md:opacity-10
+          className="absolute bottom-0 right-0 w-[70vw] sm:w-[50vw] md:w-[40vw] h-[70vw] sm:h-[50vw] md:h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-linear-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] opacity-30 sm:opacity-20 md:opacity-10
     blur-[100px] sm:blur-[130px] md:blur-[150px]
     animate-pulse delay-500"
         />
@@ -148,18 +149,18 @@ export default function Home() {
             }}
           ></div>
 
-          <motion.img
+          <Image
             src="/assets/avator.png"
-            alt="Suraj Gurung"
+            alt="Illustrated portrait of Suraj Gurung, full stack developer"
+            width={780}
+            height={760}
+            priority
             className="absolute top-1/2 -translate-y-1/2 object-contain select-none pointer-events-none"
             style={{
               right: "-30px",
               width: "min(45vw,780px)",
               maxHeight: "90vh",
             }}
-            initial={{ opacity: 0, y: 40, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
           />
         </div>
       </div>

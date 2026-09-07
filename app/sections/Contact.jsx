@@ -113,11 +113,12 @@ export default function Contact() {
 
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col">
-              <label className="mb-1">
+              <label htmlFor="contact-name" className="mb-1">
                 {" "}
                 Your Name <span className="text-red-500">*</span>
               </label>
               <input
+                id="contact-name"
                 type="text"
                 name="name"
                 placeholder="Your Name"
@@ -129,10 +130,11 @@ export default function Contact() {
             </div>
 
             <div className="flex flex-col">
-              <label className="mb-1">
+              <label htmlFor="contact-email" className="mb-1">
                 Your Email <span className="text-red-500">*</span>
               </label>
               <input
+                id="contact-email"
                 type="email"
                 name="email"
                 placeholder="Your Email"
@@ -146,10 +148,11 @@ export default function Contact() {
             </div>
 
             <div className="flex flex-col">
-              <label className="mb-1">
+              <label htmlFor="contact-service" className="mb-1">
                 Service Needed <span className="text-red-500">*</span>
               </label>
               <select
+                id="contact-service"
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
@@ -175,10 +178,11 @@ export default function Contact() {
 
             {formData.service && formData.service !== "Others" && (
               <div className="flex flex-col">
-                <label className="mb-1">
+                <label htmlFor="contact-budget" className="mb-1">
                   Budget <span className="text-red-500">*</span>
                 </label>
                 <input
+                  id="contact-budget"
                   type="text"
                   name="budget"
                   placeholder="Budget"
@@ -193,10 +197,11 @@ export default function Contact() {
             )}
 
             <div className="flex flex-col">
-              <label className="mb-1">
+              <label htmlFor="contact-idea" className="mb-1">
                 Explain Your Idea <span className="text-red-500">*</span>
               </label>
               <textarea
+                id="contact-idea"
                 name="idea"
                 rows={5}
                 placeholder="Enter Your Idea"

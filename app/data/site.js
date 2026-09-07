@@ -1,5 +1,7 @@
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
+export const SITE_URL = "https://suraj-gurung.com.np";
+
 export const socials = [
   {
     Icon: FaFacebook,

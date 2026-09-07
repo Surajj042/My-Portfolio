@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useSyncExternalStore, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -24,8 +24,8 @@ const COLOR_VARIATIONS = [
   "linear-gradient(135deg, #312e81, #020617)",
 ];
 
-// Deterministic shuffle (seeded LCG PRNG) so the server-rendered colors always
-// match the first client render — avoids hydration mismatches from Math.random().
+// Deterministic shuffle (seeded LCG PRNG) so colors match between server
+// render and client hydration — avoids hydration mismatches from Math.random().
 const seededShuffle = (arr, seed) => {
   const copy = [...arr];
   let s = seed;
@@ -43,36 +43,33 @@ const seededShuffle = (arr, seed) => {
 const INITIAL_COLOR_SEED = 1337;
 
 const useIsMobile = (query = "(max-width : 639px)") => {
-  // Initialize to the server value (false); the real value is set in the
-  // effect below after hydration to avoid a server/client mismatch.
-  const [isMobile, setIsMobile] = useState(false);
+  const getSnapshot = () => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(query).matches;
+  };
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mql = window.matchMedia(query);
-    setIsMobile(mql.matches);
-    const handler = (e) => setIsMobile(e.matches);
+  const getServerSnapshot = () => false;
 
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, [query]);
-  return isMobile;
+  return useSyncExternalStore(
+    (callback) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener("change", callback);
+      return () => mql.removeEventListener("change", callback);
+    },
+    getSnapshot,
+    getServerSnapshot,
+  );
 };
 
 export default function Projects() {
   const isMobile = useIsMobile();
   const sceneRef = useRef(null);
 
-  // Start with a fixed seed so SSR and the first client render match, then
-  // reshuffle randomly after hydration (the CSS transition makes it smooth).
-  const [colorSeed, setColorSeed] = useState(INITIAL_COLOR_SEED);
-  useEffect(() => {
-    setColorSeed(Math.floor(Math.random() * 4294967296));
-  }, []);
-
+  // Deterministic seed so SSR and client render always match; no random
+  // reshuffle after hydration to avoid a flash of changing colors.
   const shuffledColors = useMemo(
-    () => seededShuffle(COLOR_VARIATIONS, colorSeed),
-    [colorSeed],
+    () => seededShuffle(COLOR_VARIATIONS, INITIAL_COLOR_SEED),
+    [],
   );
 
   const projects = useMemo(() => {
@@ -105,7 +102,7 @@ export default function Projects() {
         height: isMobile ? 540 : 833,
       },
     ];
-  }, [isMobile]);
+  }, [isMobile, shuffledColors]);
 
   const { scrollYProgress } = useScroll({
     target: sceneRef,
@@ -217,9 +214,9 @@ export default function Projects() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-3 font-semibold rounded-lg bg-white text-black hover:bg-gray-200 transition-all "
-            aria-label={`View ${activeProject?.title}`}
+            aria-label={`View ${activeProject?.title} source code on GitHub`}
           >
-            View Project
+            View Source Code
           </a>
         </div>
       </div>

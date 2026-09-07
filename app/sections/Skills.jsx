@@ -79,6 +79,8 @@ export default function Skills() {
   }, [active]);
 
   useEffect(() => {
+    if (!active) return;
+
     let id;
     let last = performance.now();
     const SPEED = 80;
@@ -98,12 +100,12 @@ export default function Skills() {
     };
     id = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(id);
-  }, [dir, x]);
+  }, [active, dir, x]);
 
   return (
     <section
       id="skills"
-      className="h-1/2 w-full pb-8 flex flex-col items-center justify-center relative bg-black text-white overflow-hidden"
+      className="min-h-[50vh] w-full pb-8 flex flex-col items-center justify-center relative bg-black text-white overflow-hidden"
       ref={sectionRef}
     >
       <div className="absolute inset-0 pointer-events-none">

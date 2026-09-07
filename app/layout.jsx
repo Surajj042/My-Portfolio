@@ -1,4 +1,5 @@
 import { Poppins, Roboto } from "next/font/google";
+import { SITE_URL } from "./data/site";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -23,7 +24,6 @@ const roboto = Roboto({
   preload: false,
 });
 
-const SITE_URL = "https://suraj-gurung.com.np";
 const SITE_TITLE = "Suraj Gurung – Full Stack Developer | Portfolio";
 const SITE_DESCRIPTION =
   "Portfolio of Suraj Gurung, a Full Stack Developer building modern, scalable web applications with React, Next.js, Node.js, Java and TypeScript. Explore projects, skills, experience and get in touch.";
@@ -140,7 +140,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        {children}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg"
+        >
+          Skip to content
+        </a>
+        <div id="main-content">{children}</div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

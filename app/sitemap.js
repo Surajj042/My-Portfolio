@@ -1,4 +1,4 @@
-const SITE_URL = "https://suraj-gurung.com.np";
+import { SITE_URL } from "./data/site";
 
 export default function sitemap() {
   return [

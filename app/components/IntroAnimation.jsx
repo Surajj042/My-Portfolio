@@ -12,12 +12,8 @@ export default function IntroAnimation({ onFinish }) {
       "Bonjour",
       "Ciao",
       "Olá",
-      "Здравствуйте",
       "Merhaba",
-      "Γειά",
       "Hej",
-      "Hallo",
-      "Salam",
     ],
     [],
   );
