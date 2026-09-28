@@ -1,34 +1,32 @@
+import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
-import { SITE_URL } from "./data/site";
+import NavBar from "./components/NavBar";
+import {
+  GITHUB_URL,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  SITE_URL,
+  socials,
+} from "./data/site.config";
 import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  // Only weights actually painted on the page (default body text = 400).
-  // 800 is unused: the only font-extrabold sits on an h2, which uses Roboto.
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
   display: "swap",
-  // Fonts are self-hosted & inlined into the critical CSS by next/font;
-  // preloading caused "preloaded but not used" console warnings.
   preload: false,
 });
 
 const roboto = Roboto({
   subsets: ["latin"],
-  // h1/h2 always carry a weight class (semibold/bold/extrabold);
-  // 400 is never painted, so it's excluded to avoid wasted preloads.
   weight: ["600", "700", "800"],
   variable: "--font-roboto",
   display: "swap",
   preload: false,
 });
 
-const SITE_TITLE = "Suraj Gurung – Full Stack Developer | Portfolio";
-const SITE_DESCRIPTION =
-  "Portfolio of Suraj Gurung, a Full Stack Developer building modern, scalable web applications with React, Next.js, Node.js, Java and TypeScript. Explore projects, skills, experience and get in touch.";
-
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
@@ -38,22 +36,20 @@ export const metadata = {
   keywords: [
     "Suraj Gurung",
     "Suraj Gurung Portfolio",
-    "Suraj Gurung Developer",
-    "Suraj Gurung Full Stack Developer",
     "Full Stack Developer",
-    "Web Developer",
-    "Software Developer",
     "React Developer",
     "Next.js Developer",
-    "Frontend Developer",
-    "Backend Developer",
+    "TypeScript Developer",
+    "Flutter Developer",
+    "Computer Engineering Nepal",
+    "Pokhara Developer",
+    "MongoDB",
+    "Real-time collaboration",
   ],
   authors: [{ name: "Suraj Gurung", url: SITE_URL }],
   creator: "Suraj Gurung",
   publisher: "Suraj Gurung",
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: SITE_URL,
@@ -99,33 +95,46 @@ export const metadata = {
 
 export const viewport = {
   themeColor: "#0d1b2a",
+  colorScheme: "dark" as const,
 };
 
-// JSON-LD structured data: tells search engines exactly who this page is about.
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Suraj Gurung",
   url: SITE_URL,
   image: `${SITE_URL}/assets/p.jpg`,
-  jobTitle: "Full Stack Developer",
-  description:
-    "Full Stack Developer specializing in React, Next.js, Node.js, Java and TypeScript.",
-  sameAs: [
-    "https://www.linkedin.com/in/suraj-gurung-574688207/",
-    "https://github.com/Surajj042",
-    "https://www.facebook.com/suraj.gurung.sg98",
-    "https://www.instagram.com/surajjgurung/",
-  ],
+  jobTitle: "Odoo / ERP Developer and Full Stack Developer",
+  description: SITE_DESCRIPTION,
+  email: "mailto:suraj.gurung.sg98@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Pokhara",
+    addressCountry: "NP",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Pokhara Engineering College, Pokhara University",
+  },
   knowsAbout: [
-    "Web Development",
-    "Full Stack Development",
+    "Odoo",
+    "Odoo ERP development",
+    "Python",
+    "PostgreSQL",
+    "XML",
+    "OWL",
+    "TypeScript",
     "React",
     "Next.js",
-    "Node.js",
-    "Java",
-    "TypeScript",
+    "Flutter",
+    "Dart",
+    "MongoDB",
+    "Real-time collaboration",
+    "Yjs",
+    "Liveblocks",
+    "Convex",
   ],
+  sameAs: [GITHUB_URL, ...socials.filter((s) => s.label !== "GitHub").map((s) => s.href)],
 };
 
 const websiteJsonLd = {
@@ -136,17 +145,25 @@ const websiteJsonLd = {
   author: { "@type": "Person", name: "Suraj Gurung" },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${roboto.variable}`}>
+    <html lang="en" className="dark">
+      <body
+        className={`${poppins.variable} ${roboto.variable} bg-black text-white`}
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg"
         >
           Skip to content
         </a>
-        <div id="main-content">{children}</div>
+        {/* Outside <main> so the skip link above jumps *past* the navigation
+            instead of past it. Rendered here rather than in the home page so
+            the case-study routes share the same bar. */}
+        <NavBar />
+        <main id="main-content">{children}</main>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

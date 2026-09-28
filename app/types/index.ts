@@ -1,0 +1,83 @@
+/**
+ * Shared types for the portfolio data layer.
+ *
+ * Data in `app/data/*` is plain, serialisable TypeScript so it can be imported
+ * from both Server Components (layout, robots, sitemap, project pages) and
+ * Client Components without pulling anything non-serialisable into the RSC graph.
+ */
+
+export type Social = {
+  /** Network name, e.g. "GitHub". Used for the icon lookup and the aria-label. */
+  label: string;
+  href: string;
+};
+
+export type Skill = {
+  name: string;
+  /**
+   * Which group the skill belongs to. Drives the `aria-label` on each card so
+   * the marquee announces something meaningful instead of a bare noun.
+   */
+  category: "language" | "frontend" | "backend" | "realtime" | "mobile" | "tooling";
+  /** react-icons component key, resolved by `lib/icons.ts` on the client. */
+  icon: string;
+};
+
+export type Project = {
+  title: string;
+  /** URL segment for /projects/[slug]. Must be unique. */
+  slug: string;
+  /** One line for cards and the projects index. */
+  blurb: string;
+  /** Longer prose for the detail page. */
+  summary: string;
+  /** Bullet points for the detail page. */
+  highlights: string[];
+  /** Every technology actually present in the project's manifest. */
+  stack: string[];
+  year: string;
+  repo?: string;
+  demo?: string;
+  /**
+   * Public path to the card image. Optional on purpose: the projects index
+   * renders a generated gradient tile when it is missing, so an absent
+   * screenshot degrades gracefully instead of breaking the build.
+   */
+  image?: string;
+  /** Intrinsic size, required whenever `image` is set (next/image contract). */
+  width?: number;
+  height?: number;
+  alt?: string;
+  /** Set for the small-builds slot, which renders as a compact list. */
+  small?: boolean;
+  /**
+   * Real work that is listed on /projects but kept off the homepage grid. The
+   * grid is curated; this is how a project stays published without competing
+   * for the six slots above the fold.
+   */
+  arcade?: boolean;
+};
+
+export type TimelineEntry = {
+  period: string;
+  title: string;
+  org?: string;
+  href?: string;
+  points: string[];
+  kind: "education" | "work" | "project" | "milestone";
+};
+
+export type ContactDetail = {
+  label: string;
+  value: string;
+  href: string;
+};
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  company?: string;
+  /** 0–5, rendered as a star row. Omit for no rating. */
+  rating?: number;
+};

@@ -4,16 +4,18 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function About() {
+  // Replaces the previous "Experience: 1+ years" claim, which undersold a
+  // four-year Computer Engineering degree.
   const stats = [
-    { label: "Experience", value: "1+ years" },
-    { label: "Speciality", value: "Full Stack" },
-    { label: "Focus", value: "Performance and UX" },
+    { label: "Degree", value: "B.E. Computer Engineering" },
+    { label: "Current role", value: "Odoo / ERP Developer" },
+    { label: "Projects shipped", value: "6 with live demos" },
   ];
 
   const glows = [
     "-top-10 -left-10 w-[360px] h-[360px] opacity-20 blur-[120px]",
-    "bottom-0 right-10 w-[420px] h-[420px] opacity-15 blur-[140px] delay-300 ",
-    "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] opacity-10 blur-[100px] ",
+    "bottom-0 right-10 w-[420px] h-[420px] opacity-15 blur-[140px] delay-300",
+    "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] opacity-10 blur-[100px]",
   ];
 
   return (
@@ -21,11 +23,11 @@ export default function About() {
       id="about"
       className="min-h-screen w-full flex items-center justify-center relative bg-black text-white overflow-hidden"
     >
-      <div className="absolute inset-0 pointer-events-none">
-        {glows.map((c, i) => (
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {glows.map((c) => (
           <div
-            key={i}
-            className={`absolute rounded-full bg-gradient-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] animate-pulse ${c} `}
+            key={c}
+            className={`absolute rounded-full bg-gradient-to-r from-[#302b63] via-[#2a5298] to-[#6dd5fa] animate-pulse ${c}`}
           />
         ))}
       </div>
@@ -39,46 +41,51 @@ export default function About() {
           viewport={{ once: true, amount: 0.4 }}
         >
           <motion.div
-            className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#6dd5fa]/20 to-[#302b63]/20 border border-[#6dd5fa]/25 "
+            className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#6dd5fa]/20 to-[#302b63]/20 border border-[#6dd5fa]/25"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 200, damping: 18 }}
           >
             <Image
               src="/assets/p.jpg"
-              alt="Portrait photograph of Suraj Gurung, Full Stack Developer"
+              alt="Portrait photograph of Suraj Gurung, Odoo ERP and full stack developer"
               width={200}
               height={200}
+              sizes="200px"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </motion.div>
 
           <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]  ">
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#38b3f4] via-[#397df2] to-[#6dd5fa]">
               Suraj Gurung
             </h2>
 
             <p className="mt-2 text-lg sm:text-xl text-white/90 font-semibold">
-              Full Stack Developer
+              Odoo / ERP Developer &amp; Full Stack Developer
             </p>
 
-            <p className="mt-4 text-gray-300 leading-relaxed sm:text-lg max-w-2xl md:max-w-3xl ">
-              I build scalable, modern applications with a strong focus on clean
-              architecture, delightful UX, and performance. My toolkit spans
-              Java, React, Next.js, TypeScript, robust APIs and smooth
-              interfaces.
+            <p className="mt-4 text-gray-300 leading-relaxed sm:text-lg max-w-2xl md:max-w-3xl">
+              I&apos;m a Computer Engineering graduate from Pokhara Engineering
+              College, currently building custom Odoo 19 ERP modules in Python,
+              PostgreSQL and OWL at Eminence Ways — covering HR, attendance,
+              leave, payroll, performance and reporting. Alongside that I build
+              full-stack web applications with TypeScript, React and Next.js,
+              with a focus on real-time systems: collaborative editing, video,
+              payments and AI-assisted features. Most of my work is shipped and
+              live rather than sitting in a repo.
             </p>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl">
               {stats.map((item, i) => (
                 <motion.div
-                  key={i}
+                  key={item.label}
                   className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.4 }}
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div className="text-sm text-gray-400 ">{item.label}</div>
+                  <div className="text-sm text-gray-400">{item.label}</div>
                   <div className="text-base font-semibold">{item.value}</div>
                 </motion.div>
               ))}
@@ -112,12 +119,16 @@ export default function About() {
             About Me
           </h3>
           <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
-            I&apos;m a FullStack Developer - passionate about crafting fast,
-            scalable applications and exploring new technologies.
+            I work end to end: shaping the data model, wiring the API, and
+            building the interface that has to feel fast under real interaction.
+            The parts I enjoy most are the hard ones — synchronising concurrent
+            edits, streaming video, and integrating third-party APIs without
+            letting the seams show.
           </p>
           <p className="mt-4 text-gray-400 text-base sm:text-lg">
-            I enjoy turning creative ideas into intuitive, user-friendly
-            products that leave a mark.
+            Outside of coursework I work through problems deliberately: reading
+            documentation, tracing bugs to their source, and rebuilding features
+            I only half understood the first time.
           </p>
         </motion.div>
       </div>

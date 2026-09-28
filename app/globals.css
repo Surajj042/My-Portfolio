@@ -15,6 +15,24 @@ h2 {
   }
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Honour the OS motion preference globally. This is a backstop for the
+ * JS-driven animations (canvas, marquee, typewriter, cursor) — framer-motion
+ * is handled by <MotionConfig reducedMotion="user"> in app-client.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
