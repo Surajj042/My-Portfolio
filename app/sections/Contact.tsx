@@ -5,48 +5,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ParticlesBackground from "../components/ParticlesBackground";
 import { contact } from "../data/site.config";
-
-type FormState = {
-  name: string;
-  email: string;
-  service: string;
-  budget: string;
-  idea: string;
-};
-
-type FormErrors = Partial<Record<keyof FormState, string>>;
-type Status = "" | "sending" | "success" | "error";
-
-const EMPTY: FormState = { name: "", email: "", service: "", budget: "", idea: "" };
-
-const SERVICE_OPTIONS = [
-  "Odoo / ERP Development",
-  "Web Development",
-  "Mobile Application",
-  "Others",
-];
-
-/** Exported for unit tests — keeps the rules in one place. */
-export function validateForm(data: FormState): FormErrors {
-  const errors: FormErrors = {};
-  const required: (keyof FormState)[] = ["name", "email", "service", "idea"];
-
-  for (const field of required) {
-    if (!data[field].trim()) {
-      errors[field] = "This field is required.";
-    }
-  }
-  if (data.email && !/^\S+@\S+\.\S+$/.test(data.email)) {
-    errors.email = "Enter a valid email address.";
-  }
-  if (data.service !== "Others" && !data.budget.trim()) {
-    errors.budget = "Please give a rough budget.";
-  }
-  return errors;
-}
+import {
+  EMPTY_FORM,
+  OPEN_SERVICE,
+  SERVICE_OPTIONS,
+  isBudgetInput,
+  validateForm,
+  type FormErrors,
+  type FormState,
+  type Status,
+} from "../lib/contact-form";
 
 export default function Contact() {
-  const [formData, setFormData] = useState<FormState>(EMPTY);
+  const [formData, setFormData] = useState<FormState>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("");
 
@@ -54,7 +25,7 @@ export default function Contact() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    if (name === "budget" && value && !/^\d*\.?\d*$/.test(value)) return;
+    if (name === "budget" && !isBudgetInput(value)) return;
     const key = name as keyof FormState;
     setFormData((p) => ({ ...p, [key]: value }));
     if (errors[key]) setErrors((p) => ({ ...p, [key]: undefined }));
@@ -89,7 +60,7 @@ export default function Contact() {
         publicKey,
       );
       setStatus("success");
-      setFormData(EMPTY);
+      setFormData(EMPTY_FORM);
       setErrors({});
     } catch {
       setStatus("error");
@@ -251,7 +222,10 @@ export default function Contact() {
               )}
             </div>
 
-            {formData.service && formData.service !== "Others" && (
+            {/* OPEN_SERVICE rather than the literal: this condition and the
+                budget exemption in `validateForm` have to agree, and the
+                constant is what keeps them from drifting apart. */}
+            {formData.service && formData.service !== OPEN_SERVICE && (
               <div className="flex flex-col">
                 <label htmlFor="contact-budget" className="mb-1">
                   Budget (USD) <span className="text-red-500">*</span>
