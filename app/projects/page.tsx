@@ -48,8 +48,8 @@ export default function AllProjectsPage() {
         <header className="mt-8">
           <h1 className="text-4xl font-extrabold sm:text-5xl">All projects</h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-300">
-            {projects.length} builds in total &mdash; the six on the homepage,
-            plus everything else I&apos;ve shipped.
+            The full archive &mdash; shipped work, experiments, and the things
+            that taught me the most.
           </p>
         </header>
 

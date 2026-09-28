@@ -8,7 +8,7 @@ import { socials } from "../data/site.config";
 import { glowVariants } from "../lib/motion";
 import { getSocialIcon } from "../lib/icons";
 
-const ROLES = ["Odoo / ERP Developer", "Full Stack Developer"] as const;
+const ROLES = ["Computer Engineer", "Full Stack Developer"] as const;
 const TYPE_MS = 60;
 const DELETE_MS = 40;
 const HOLD_MS = 1200;

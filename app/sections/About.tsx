@@ -4,12 +4,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function About() {
-  // Replaces the previous "Experience: 1+ years" claim, which undersold a
-  // four-year Computer Engineering degree.
   const stats = [
-    { label: "Degree", value: "B.E. Computer Engineering" },
-    { label: "Current role", value: "Odoo / ERP Developer" },
-    { label: "Projects shipped", value: "6 with live demos" },
+    { label: "Experience", value: "3+ years" },
+    { label: "Speciality", value: "Full Stack" },
+    { label: "Focus", value: "Performance and UX" },
   ];
 
   const glows = [
@@ -47,7 +45,7 @@ export default function About() {
           >
             <Image
               src="/assets/p.jpg"
-              alt="Portrait photograph of Suraj Gurung, Odoo ERP and full stack developer"
+              alt="Portrait photograph of Suraj Gurung, Full Stack Developer"
               width={200}
               height={200}
               sizes="200px"
@@ -61,18 +59,14 @@ export default function About() {
             </h2>
 
             <p className="mt-2 text-lg sm:text-xl text-white/90 font-semibold">
-              Odoo / ERP Developer &amp; Full Stack Developer
+              Full Stack Developer
             </p>
 
             <p className="mt-4 text-gray-300 leading-relaxed sm:text-lg max-w-2xl md:max-w-3xl">
-              I&apos;m a Computer Engineering graduate from Pokhara Engineering
-              College, currently building custom Odoo 19 ERP modules in Python,
-              PostgreSQL and OWL at Eminence Ways — covering HR, attendance,
-              leave, payroll, performance and reporting. Alongside that I build
-              full-stack web applications with TypeScript, React and Next.js,
-              with a focus on real-time systems: collaborative editing, video,
-              payments and AI-assisted features. Most of my work is shipped and
-              live rather than sitting in a repo.
+              I build custom Odoo ERP modules in Python at Eminence Ways, and
+              independent full-stack products with TypeScript, React and
+              Next.js — with a focus on clean architecture, fast interfaces
+              and work that&apos;s actually live.
             </p>
 
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl">
@@ -119,16 +113,12 @@ export default function About() {
             About Me
           </h3>
           <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
-            I work end to end: shaping the data model, wiring the API, and
-            building the interface that has to feel fast under real interaction.
-            The parts I enjoy most are the hard ones — synchronising concurrent
-            edits, streaming video, and integrating third-party APIs without
-            letting the seams show.
+            I work end to end, from the data model to the interface that has
+            to feel fast.
           </p>
           <p className="mt-4 text-gray-400 text-base sm:text-lg">
-            Outside of coursework I work through problems deliberately: reading
-            documentation, tracing bugs to their source, and rebuilding features
-            I only half understood the first time.
+            I enjoy turning rough ideas into products that are simple to use
+            and hard to break.
           </p>
         </motion.div>
       </div>
