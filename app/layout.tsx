@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Roboto } from "next/font/google";
+import { JetBrains_Mono, Poppins, Roboto } from "next/font/google";
 import NavBar from "./components/NavBar";
 import {
   GITHUB_URL,
@@ -22,6 +22,23 @@ const roboto = Roboto({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
   variable: "--font-roboto",
+  display: "swap",
+  preload: false,
+});
+
+/*
+ * Scoped to the terminal hero only, so the mono is paid for on the one section
+ * that needs it. Body copy stays on Poppins/Roboto, which is what the rest of
+ * the site is set in.
+ *
+ * `weight` is deliberately a single 500. This face only ever renders the hero's
+ * command lines, and a variable range here would pull several extra weight
+ * files for no gain.
+ */
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-mono",
   display: "swap",
   preload: false,
 });
@@ -151,7 +168,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${poppins.variable} ${roboto.variable} bg-black text-white`}
+        className={`${poppins.variable} ${roboto.variable} ${jetbrainsMono.variable} bg-black text-white`}
       >
         <a
           href="#main-content"

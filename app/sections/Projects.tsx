@@ -57,9 +57,9 @@ export default function Projects() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
-          Six builds, from a vanilla JavaScript bingo caller to a
-          &ldquo;Near&nbsp;Garbage&rdquo; volunteer-management platform. Open a
-          quick look for the detail without leaving the page.
+          Six builds, from a dependency-free bingo caller to a real-time
+          collaborative workspace. Open a quick look for the detail without
+          leaving the page.
         </motion.p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

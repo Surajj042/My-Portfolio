@@ -1,13 +1,13 @@
 # Suraj Gurung | Portfolio
 
-A modern, single-page portfolio built with Next.js, React, Tailwind CSS v4, and Framer Motion.
+A portfolio site built with Next.js, React, Tailwind CSS v4, and Framer Motion. The homepage is a single scrolling page; project case studies live on their own routes under `/projects`.
 
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router)
 - **UI:** React 19
 - **Styling:** Tailwind CSS v4
-- **Animations:** Framer Motion, Canvas 2D particles, WebGL (OGL)
+- **Animations:** Framer Motion, Canvas 2D particles
 - **Email:** EmailJS (client-side)
 
 ## Getting Started
@@ -25,6 +25,18 @@ Open [http://localhost:3000](http://localhost:3000).
 npm run build
 npm start
 ```
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build (fully static) |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run test` | Unit tests (Vitest) |
+| `npm run generate:og` | Regenerate `public/assets/og-image.png` |
 
 ## Environment Variables
 

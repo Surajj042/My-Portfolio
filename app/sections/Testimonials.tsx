@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiPause, FiPlay } from "react-icons/fi";
 import { testimonials } from "../data/testimonials";
 
 /** Cards visible at once. The data set is a multiple of this on purpose so the
@@ -11,22 +12,19 @@ import { testimonials } from "../data/testimonials";
 const PER_PAGE = 3;
 const AUTO_ADVANCE_MS = 3000;
 
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
 export default function Testimonials() {
   const reduceMotion = useReducedMotion();
   const [page, setPage] = useState(0);
   const [direction, setDirection] = useState(1);
+  /**
+   * The user's own stop control, which is what WCAG 2.2.2 asks for. Deliberately
+   * separate from `engaged`: hovering the carousel is a transient hold that
+   * resumes on leave, whereas this is a decision that persists until reversed.
+   */
+  const [paused, setPaused] = useState(false);
   // Set while the pointer is inside the carousel or something inside it has
-  // focus. With the play/pause control removed this is the only way a user can
-  // stop the rotation short of turning motion off at the OS level.
+  // focus, as a second way to stop the rotation short of reaching for the
+  // pause control.
   const [engaged, setEngaged] = useState(false);
 
   const regionRef = useRef<HTMLDivElement | null>(null);
@@ -67,23 +65,22 @@ export default function Testimonials() {
   }, []);
 
   /**
-   * Autoplay. Suspended whenever the carousel is being read — hovered or
-   * focused — and whenever the tab is in the background, where a timer would
-   * advance pages nobody is looking at.
+   * Autoplay. Suspended whenever the user has pressed pause, whenever the
+   * carousel is being read — hovered or focused — and whenever the tab is in
+   * the background, where a timer would advance pages nobody is looking at.
    *
-   * KNOWN, DELIBERATE WCAG 2.2.2 (Level A) DEVIATION:
-   * Auto-updating content presented in parallel with other content needs a
-   * mechanism to pause, stop or hide it. The five second exception applies only
-   * to moving, blinking and scrolling content, not to auto-updating content, so
-   * a 3 second interval does not exempt this carousel. A pause button was
-   * built, verified and then removed on request. The hover/focus hold and the
-   * reduced-motion opt-out below are the remaining mitigations, and they are
-   * partial: neither is a control a touch user without motion preferences can
-   * reach. Reinstating the button is the fix if this ever needs to pass an
-   * accessibility audit.
+   * The pause control is the WCAG 2.2.2 (Level A) mechanism. That criterion
+   * covers auto-updating content presented in parallel with other content, and
+   * the 5 second exception applies only to moving, blinking and scrolling
+   * content — a 3 second interval did not exempt this carousel, which is why a
+   * control is required here rather than merely nice. It is a real tab stop
+   * with a label that states its own action, so it is reachable by keyboard
+   * and not something a touch user has to hover for.
    */
   useEffect(() => {
-    if (reduceMotion || engaged || !pageVisible || pageCount < 2) return;
+    if (reduceMotion || paused || engaged || !pageVisible || pageCount < 2) {
+      return;
+    }
 
     const id = window.setInterval(() => {
       setDirection(1);
@@ -91,7 +88,7 @@ export default function Testimonials() {
     }, AUTO_ADVANCE_MS);
 
     return () => window.clearInterval(id);
-  }, [engaged, pageCount, pageVisible, reduceMotion]);
+  }, [engaged, pageCount, pageVisible, paused, reduceMotion]);
 
   if (total === 0) return null;
 
@@ -203,15 +200,29 @@ export default function Testimonials() {
 
                       <figcaption className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-3">
-                          {/* No avatar image on purpose — see the note in
-                              `data/testimonials.ts`. A monogram is a visible
-                              placeholder; a stock photo is a false face. */}
-                          <span
-                            aria-hidden="true"
-                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#38b3f4] to-[#302b63] text-sm font-bold text-white"
-                          >
-                            {initials(t.name)}
-                          </span>
+                          {/*
+                            Generated by `scripts/generate-avatars.mjs`, not
+                            photographed — see the note in `data/testimonials.ts`
+                            for why, and for how to swap in real consented
+                            pictures. The name sits right beside this, so the
+                            image is decorative and `alt` is empty: announcing
+                            the name twice is noise for a screen reader.
+                          */}
+                          {t.avatar ? (
+                            <Image
+                              src={t.avatar}
+                              alt=""
+                              width={88}
+                              height={88}
+                              sizes="44px"
+                              className="h-11 w-11 shrink-0 rounded-full border border-white/15"
+                            />
+                          ) : (
+                            <span
+                              aria-hidden="true"
+                              className="h-11 w-11 shrink-0 rounded-full bg-gradient-to-br from-[#38b3f4] to-[#302b63]"
+                            />
+                          )}
                           <div>
                             <p className="font-semibold text-white">{t.name}</p>
                             <p className="text-sm text-gray-400">
@@ -290,6 +301,30 @@ export default function Testimonials() {
               className="rounded-full border border-white/15 p-2 text-gray-300 transition-colors hover:border-[#6dd5fa] hover:text-[#6dd5fa] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6dd5fa]"
             >
               <FiChevronRight aria-hidden="true" />
+            </button>
+
+            {/*
+              Kept inline with the other controls rather than tucked into a
+              corner, so it is discoverable alongside the arrows it sits
+              between. The label states the action it performs and swaps with
+              the state, so it is usable from the accessibility tree alone.
+            */}
+            <button
+              type="button"
+              onClick={() => setPaused((p) => !p)}
+              aria-pressed={paused}
+              aria-label={
+                paused
+                  ? "Resume rotating testimonials"
+                  : "Pause rotating testimonials"
+              }
+              className="rounded-full border border-white/15 p-2 text-gray-300 transition-colors hover:border-[#6dd5fa] hover:text-[#6dd5fa] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6dd5fa]"
+            >
+              {paused ? (
+                <FiPlay aria-hidden="true" />
+              ) : (
+                <FiPause aria-hidden="true" />
+              )}
             </button>
           </div>
         </motion.div>

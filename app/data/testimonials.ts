@@ -2,25 +2,33 @@ import type { Testimonial } from "../types";
 
 /*
  * ============================================================================
- * PLACEHOLDER CONTENT — REPLACE BEFORE DEPLOYING
+ * SAMPLE CONTENT — REPLACE BEFORE DEPLOYING
  * ============================================================================
  *
- * These entries are NOT real testimonials. Nobody wrote them, nobody is
- * quoted, and no company is represented. The names below are deliberately
- * generic placeholders rather than invented people, because publishing a
- * fabricated quote under a plausible-sounding name is misinformation: a
- * visitor would reasonably read "Priya Raman, Senior Engineer at Vercel" as a
- * real endorsement, and could make a hiring or contracting decision on it.
+ * These entries are NOT real testimonials. Nobody wrote them, nobody is quoted,
+ * and no organisation is represented.
  *
- * The layout is 3 cards across on desktop, so cards are narrow and the
- * carousel advances every 3 seconds. Both of those push hard in the same
- * direction: quotes here are deliberately short, roughly 20-30 words, which is
- * about what a reader can actually finish in a 3 second dwell. Real quotes
- * should be trimmed to a similar length or the cards will have to scroll.
+ * The names are plausible on purpose, so the card layout is exercised honestly:
+ * two-line attributions, differing name lengths, and a long company name that
+ * has to wrap next to a 48px portrait. "Client Name" hid all of that.
  *
- * The entries are not uniform on purpose. One has a `company`, one omits
- * `rating` entirely, so the two layout paths that differ get exercised rather
- * than assumed.
+ * The companies are INVENTED — each is a name I made up, not a real
+ * organisation. That is a deliberate line. A fabricated quote attributed to a
+ * generic person is a lie on a template; the same quote attributed to a company
+ * that actually exists is a lie about something a reader could go and check, and
+ * potentially about a named business. If you replace these, check the same way:
+ * no real company should ever appear here without a quote they actually gave.
+ *
+ * The avatars are generated, not photographed — `scripts/generate-avatars.mjs`
+ * draws a gradient tile carrying each person's initials. A stock photo standing
+ * in for a named face is a fabricated likeness attached to a fabricated quote.
+ * These read as placeholders but occupy the space a real portrait would, so the
+ * card can be judged at its true size. Swap in consented photographs by
+ * dropping files into `public/assets/avatars/` and repointing `avatar`.
+ *
+ * The entries are not uniform on purpose. One carries a `company`, one omits
+ * `rating` entirely, and the lengths differ, so the layout paths that differ get
+ * exercised rather than assumed.
  *
  * TO SHIP THIS SECTION FOR REAL:
  *   1. Delete every entry below and paste in quotes you have actually been
@@ -36,51 +44,59 @@ import type { Testimonial } from "../types";
  *   4. Keep the count a multiple of 3 (PER_PAGE in `sections/Testimonials.tsx`)
  *      so the two pages stay balanced. A trailing page of one card looks
  *      broken next to a full one.
- *
- * There is no `avatar` field on purpose: a stock photo standing in for a
- * person's face is the same problem one level down.
+ *   5. Regenerate the tiles after editing names: `npm run generate:avatars`.
  */
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Placeholder quote — short enough to finish in one 3 second pass, but long enough that the card holds its full width without collapsing.",
-    name: "Client Name",
-    role: "Role at Company",
+      "Took over a project that had stalled twice and got it to launch. Asked the right questions early, which is most of why it moved.",
+    name: "Anish Rai",
+    role: "Founder",
+    company: "Ledgerline",
+    avatar: "/assets/avatars/anish-rai.png",
     rating: 5,
   },
   {
     quote:
-      "Placeholder quote describing a result rather than a personality, which is the shape most real testimonials take once the work produced something measurable.",
-    name: "Client Name",
-    role: "Role at Company",
+      "The bug had been open for months. It turned out to be one line, found in an afternoon, and explained so our team could follow it.",
+    name: "Sneha Adhikari",
+    role: "Operations Lead",
+    company: "Brightleaf Retail",
+    avatar: "/assets/avatars/sneha-adhikari.png",
     rating: 5,
   },
   {
     quote:
-      "Placeholder quote with a `company` attached, so the attribution line runs onto two lines and the card height can be checked against its neighbours.",
-    name: "Client Name",
-    role: "Role at Company",
-    company: "Company",
+      "Rebuilt our internal reporting around what people actually ask for, rather than the report we had always been producing.",
+    name: "Bikash Thapa",
+    role: "Product Manager",
+    company: "Himal Byte",
+    avatar: "/assets/avatars/bikash-thapa.png",
     rating: 4,
   },
   {
     quote:
-      "Placeholder quote with no `rating` field at all, so the layout path where the star row is missing gets exercised rather than assumed to be fine.",
-    name: "Client Name",
-    role: "Role at Company",
+      "Handover notes that made sense. Sounds minor until you are the one receiving the project six months later.",
+    name: "Pratiksha Shah",
+    role: "Studio Manager",
+    avatar: "/assets/avatars/pratiksha-shah.png",
   },
   {
     quote:
-      "Placeholder quote — this is the widest of the six, kept long on purpose to prove the grid stacks to the tallest card instead of clipping the name and role.",
-    name: "Client Name",
-    role: "Role at Company",
+      "We had a half-finished feature and a deadline. It got scoped down, shipped, and the part nobody wanted to touch turned out to be the easy part once it was written down.",
+    name: "Nirajan Gurung",
+    role: "Technical Director",
+    company: "Everest Fintech",
+    avatar: "/assets/avatars/nirajan-gurung.png",
     rating: 5,
   },
   {
     quote:
-      "Placeholder quote closing the second page. Six entries is two full pages of three, with no ragged remainder on the end.",
-    name: "Client Name",
-    role: "Role at Company",
+      "Straightforward to work with, quick to answer, and patient with the questions we should have known the answers to.",
+    name: "Aashma Khadka",
+    role: "Co-founder",
+    company: "Karnali Foods",
+    avatar: "/assets/avatars/aashma-khadka.png",
     rating: 5,
   },
 ];
